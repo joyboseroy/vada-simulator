@@ -8,8 +8,9 @@ from the graph, sourced back to an actual passage in a real philosophical
 text. Agents cannot invent arguments or fabricate citations; if they have
 no textual evidence for a point, they're required to say so.
 
-This is a small companion project to [darshana-graph](https://huggingface.co/datasets/joyboseroy/darshana-graph)
-(arXiv:2606.18222) — a demonstration that a text-grounded philosophical
+This is a small companion project to [darshana-graph](https://github.com/joyboseroy/darshana-graph)
+([dataset on HuggingFace](https://huggingface.co/datasets/joyboseroy/darshana-graph),
+arXiv:2606.18222) — a demonstration that a text-grounded philosophical
 knowledge graph can do more than support retrieval: it can power a
 citation-disciplined multi-agent reasoning system (a *vada*, the classical
 Sanskrit term for a formal philosophical debate).
@@ -194,7 +195,8 @@ If you use this tool, please cite the underlying dataset:
 
 > Bose, J. *Darshana Graph: A Text-Grounded Knowledge Graph of Indian
 > Philosophy.* arXiv:2606.18222 (2026).
-> https://huggingface.co/datasets/joyboseroy/darshana-graph
+> Code: https://github.com/joyboseroy/darshana-graph ·
+> Data: https://huggingface.co/datasets/joyboseroy/darshana-graph
 
 ## License
 
