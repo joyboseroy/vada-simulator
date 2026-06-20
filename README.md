@@ -152,6 +152,7 @@ Both produce `<out>.json` (raw transcript + verdict) and `<out>.html`
 | `explore_graph.py` | Inspect edge counts per school/concept before picking a debate pairing |
 | `inspect_sources.py` | Diagnostic — lists real `source_text` values in the graph |
 | `FINDINGS.md` | Write-up of the Buddhism-vs-Advaita concept-framing experiment |
+| `debate_*.html` / `.json` | Example debate transcripts (see Example outputs above) |
 
 ## Known limitations (inherited from darshana-graph)
 
@@ -167,6 +168,26 @@ Both produce `<out>.json` (raw transcript + verdict) and `<out>.html`
   to other relation types, which can make debates feel repetitive if the
   same handful of high-confidence edges keep getting cited.
 
+## Example outputs
+
+This repo includes real transcripts from the experiment described in
+[FINDINGS.md](FINDINGS.md), so you can see actual output without running
+anything yourself:
+
+- [`debate_anatta_vs_atman.html`](debate_anatta_vs_atman.html) — Buddhism
+  (arguing from `anatta`) vs Advaita Vedanta (arguing from `atman`), the
+  cross-concept self/no-self debate
+- [`debate_atman.html`](debate_atman.html) — same two schools, both forced
+  onto the single node `atman`
+- [`debate_dukkha.html`](debate_dukkha.html) — same two schools debating
+  suffering/`dukkha`
+- [`debate_output.html`](debate_output.html) — Advaita vs Dvaita on `atman`
+- [`debate_output_n.html`](debate_output_n.html) — 3-school debate
+  (Advaita vs Dvaita vs Vishishtadvaita) on `atman`
+
+Each `.html` has a matching `.json` with the raw transcript and verdict.
+Open any `.html` file directly in a browser — no server needed.
+
 ## Citation
 
 If you use this tool, please cite the underlying dataset:
@@ -177,7 +198,7 @@ If you use this tool, please cite the underlying dataset:
 
 ## License
 
-Code in this repository: MIT (or your preferred choice — update before
-publishing). Underlying graph data retains darshana-graph's CC-BY-4.0
-license; source texts retain their original licenses as documented in the
-dataset card.
+Code in this repository: MIT (see [LICENSE](LICENSE)). Underlying graph
+data retains darshana-graph's CC-BY-4.0 license; source texts retain their
+original licenses as documented in the
+[dataset card](https://huggingface.co/datasets/joyboseroy/darshana-graph#license).
