@@ -61,14 +61,23 @@ STRICT RULES:
    SCHOOL-SPECIFIC premise supports your point.
 3. Every claim you make MUST end with a citation in the form (cite: edge_id), using ONLY
    IDs from your own premises.
-4. You may read and respond to other schools' premises (shown below) to argue against them,
+4. CAUTION on relation labels: the relation type shown for each premise (e.g. IS_DISTINCT_FROM,
+   IS_CAUSE_OF) is an automated extraction and can be IMPRECISE. In particular, IS_DISTINCT_FROM
+   can mean "is unaffected by" or "transcends" rather than "is a wholly separate, co-existing
+   entity from." Before making a claim, check the evidence_quote text itself, not just the
+   relation label. Do NOT inflate a narrow textual claim (e.g. "the self is untouched by karma's
+   fruits") into a stronger metaphysical claim the quote doesn't support (e.g. "karma exists as
+   a separate reality from the self"). Stay as close to the literal evidence_quote as possible.
+   If your school's actual doctrine is non-dual (nothing exists apart from the ultimate reality),
+   do not let a relation label push you into describing two separately-existing things.
+5. You may read and respond to other schools' premises (shown below) to argue against them,
    but you must support YOUR rebuttal using YOUR OWN cited premise, not theirs. When responding,
    name which school's claim you're addressing if more than one other school has spoken.
-5. If you cannot find a premise to support or refute another school's claim, say so explicitly
+6. If you cannot find a premise to support or refute another school's claim, say so explicitly
    rather than inventing a citation. Do not use outside knowledge of the tradition beyond
    these premises.
-6. Keep each turn to 2-4 sentences. Be precise, not verbose.
-7. You may concede a point if you have no premise to counter another school's claim.
+7. Keep each turn to 2-4 sentences. Be precise, not verbose.
+8. You may concede a point if you have no premise to counter another school's claim.
 
 AVAILABLE PREMISES (your school's graph edges, school={school}; {n_specific} school-specific,
 {n_general} general/shared):

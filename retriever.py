@@ -22,12 +22,16 @@ vishishtadvaita, achintya_bhedabheda -- ~7,600 edges total) are the more
 reliable subset for genuine cross-school debate.
 """
 
-from falkordb import FalkorDB
 from dataclasses import dataclass
 from typing import List
+import os
 
 
 GRAPH_NAME = "darshana_graph"
+
+# Persistent file location for FalkorDBLite (no Docker, survives reboots).
+# Change this if you want the data file somewhere else.
+FALKORDBLITE_PATH = os.path.join(os.path.expanduser("~"), ".vada-simulator", "falkordb.db")
 
 
 @dataclass
@@ -59,8 +63,25 @@ class Edge:
         )
 
 
-def connect(host: str = "localhost", port: int = 6379):
-    db = FalkorDB(host=host, port=port)
+def connect(host: str = None, port: int = None, use_docker: bool = False):
+    """
+    By default, connects via FalkorDBLite: an embedded, file-based FalkorDB
+    that requires no Docker and persists data permanently at
+    FALKORDBLITE_PATH. This is the recommended path for a personal laptop
+    setup with no Docker dependency.
+
+    Pass use_docker=True (and optionally host/port) to instead connect to a
+    Docker-based FalkorDB instance the old way, if you still have one
+    running and want to use it.
+    """
+    if use_docker:
+        from falkordb import FalkorDB as DockerFalkorDB
+        db = DockerFalkorDB(host=host or "localhost", port=port or 6379)
+        return db.select_graph(GRAPH_NAME)
+
+    from redislite.falkordb_client import FalkorDB as LiteFalkorDB
+    os.makedirs(os.path.dirname(FALKORDBLITE_PATH), exist_ok=True)
+    db = LiteFalkorDB(FALKORDBLITE_PATH)
     return db.select_graph(GRAPH_NAME)
 
 

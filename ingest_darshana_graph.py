@@ -28,7 +28,6 @@ the raw passages. Skipping it saves a large download.
 import json
 import os
 from huggingface_hub import hf_hub_download
-from falkordb import FalkorDB
 
 GRAPH_NAME = "darshana_graph"
 REPO_ID = "joyboseroy/darshana-graph"
@@ -45,8 +44,8 @@ def download_graph_file() -> str:
 
 
 def load_edges(jsonl_path: str):
-    db = FalkorDB(host="localhost", port=6379)
-    graph = db.select_graph(GRAPH_NAME)
+    from retriever import connect
+    graph = connect()
 
     # WARNING: this clears any existing data in this graph name. Comment out
     # if you want to append instead of replace.
