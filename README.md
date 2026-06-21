@@ -18,8 +18,10 @@ Sanskrit term for a formal philosophical debate).
 **Notable finding:** running the same two schools (Buddhism vs Advaita)
 across three different concept framings of the self/no-self question
 produced three different debate outcomes — see [FINDINGS.md](FINDINGS.md)
-for the full writeup, sample transcripts, and what it suggests about
-tagging-coverage bias in LLM-extracted knowledge graphs.
+(or the [Medium write-up](https://medium.com/@joyboseroy/what-2500-years-of-indian-philosophy-taught-me-about-asking-ai-the-right-question-e5fa6e0a6c8e)
+for a non-technical version) for the full writeup, sample transcripts, and
+what it suggests about tagging-coverage bias in LLM-extracted knowledge
+graphs.
 
 ## How it works
 
