@@ -58,7 +58,51 @@ To let Buddhism debate at all, this tool filters by *source text*
 Nipata) instead of relying on a school field that doesn't exist for this
 tradition — see `retriever.py`'s `get_buddhist_edges_for_concept()`.
 
-## Setup
+## Additional tools
+
+Beyond the debate engine itself, this repo includes a few smaller tools
+that reuse the same retrieval layer:
+
+```bash
+# Find concept pairs where schools assert CONTRADICTORY relations
+python3 contradiction_finder.py --top 20
+python3 contradiction_finder.py --concept atman
+
+# Ask a single question, get one grounded answer (not a debate)
+python3 ask_darshana.py "What does Advaita say about the self?" --school advaita
+python3 ask_darshana.py "What causes dukkha?" --school buddhist
+
+# Diagnostics used while building/debugging this project
+python3 check_edge_fidelity.py edge_021445       # inspect the real evidence_quote behind a citation
+python3 check_commentator_granularity.py          # check what attribution fields actually exist
+python3 inspect_sources.py                        # list real source_text values in the graph
+```
+
+`ask_darshana.py` is the simpler sibling of the debate engine: single
+grounded answer, not a multi-agent debate, useful as a quick "build me a
+basic RAG system" demo. It ranks retrieved evidence by relevance (does the
+edge connect two concepts you actually asked about, is it an
+identity-defining relation type, is it school-specific) rather than
+returning edges in arbitrary retrieval order.
+
+## Setup (no Docker required)
+
+This project runs on [FalkorDBLite](https://pypi.org/project/falkordblite/),
+an embedded, file-based FalkorDB with no Docker dependency. Data persists
+permanently on disk and survives reboots.
+
+```bash
+sudo apt install -y python3-dev build-essential
+pip install falkordblite "redis<8.0" --break-system-packages
+
+python3 ingest_darshana_graph.py    # one-time: downloads + loads the real dataset
+python3 retriever.py                 # smoke test
+```
+
+(If you prefer Docker instead, `retriever.py`'s `connect(use_docker=True)`
+still supports the original host/port path.)
+
+## Setup (original, Docker-based)
 
 ### 1. Install
 
@@ -150,6 +194,10 @@ Both produce `<out>.json` (raw transcript + verdict) and `<out>.html`
 | `run_debate.py` | CLI entrypoint, 2-agent |
 | `run_debate_n.py` | CLI entrypoint, N-agent |
 | `render.py` | Transcript → styled HTML, shared-citation flagging |
+| `contradiction_finder.py` | Finds concept pairs with contradictory relations across schools |
+| `ask_darshana.py` | Single-answer grounded RAG tool (simpler sibling of the debate engine) |
+| `check_edge_fidelity.py` | Inspects the real evidence_quote behind any citation |
+| `check_commentator_granularity.py` | Diagnostic for what attribution fields exist in the graph |
 | `explore_graph.py` | Inspect edge counts per school/concept before picking a debate pairing |
 | `inspect_sources.py` | Diagnostic — lists real `source_text` values in the graph |
 | `FINDINGS.md` | Write-up of the Buddhism-vs-Advaita concept-framing experiment |
@@ -168,6 +216,21 @@ Both produce `<out>.json` (raw transcript + verdict) and `<out>.html`
 - `IS_QUALIFIED_ASPECT_OF` is over-represented in the source data relative
   to other relation types, which can make debates feel repetitive if the
   same handful of high-confidence edges keep getting cited.
+- **Citation-validity is not citation-fidelity.** Every citation in a
+  debate transcript references a real edge with a real evidence_quote
+  (validity is enforced programmatically), but the agent's paraphrase of
+  what that quote means can still drift from what the quote actually
+  supports. A real example caught during review: an Advaita agent cited a
+  passage meaning "the self is untouched by virtue and vice" but phrased
+  it as "the self is distinct from karma, which exists separately,"
+  inflating a narrower claim into a stronger, actually incorrect
+  metaphysical one (Advaita's non-dual position holds nothing exists
+  apart from the self/Brahman at all). `agents.py` now includes an
+  explicit prompt guardrail against this specific failure mode, but no
+  automated check verifies content fidelity the way citation-validity is
+  verified. Treat any specific debate claim as worth checking against the
+  real evidence_quote (`check_edge_fidelity.py`) before citing it
+  elsewhere as established philosophical fact.
 
 ## Example outputs
 
